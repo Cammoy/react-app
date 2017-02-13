@@ -1,0 +1,41 @@
+.card-grid {
+  float: left;
+  @media (min-width: 768px) {
+    display: table;
+    border-collapse:separate;
+    border-spacing:5px;
+  }
+
+  &__row {
+    @media (min-width: 768px) {
+      display:table-row;
+    }
+  }
+}
+.card {
+  color:#222;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  cursor:pointer;
+
+  @media (min-width: 768px) {
+    display: table-cell;
+    width:50%;
+  }
+  @media (min-width: 960px) {
+  }
+  @media (min-width: 1280px) {
+    width:30%;
+    min-height: auto;
+  }
+
+  /* Add some padding inside the card container */
+  &-container {
+      padding: 2px 16px;
+  }
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  &__footer {
+  }
+}

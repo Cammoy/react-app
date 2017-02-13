@@ -1,0 +1,52 @@
+// Define Variables
+//-------------------------------------------------------
+
+$darkGrey: #444;
+$green: green;
+
+.toolbar {
+  float: left;
+  width:100%;
+
+  &__filterBy, &__layout {
+
+    clear: left;
+    padding: 15px;
+    list-style:none;
+
+    &--heading {
+      width:100%;
+      background: #EEE;
+      padding: 5px 0 5px 8px;
+      margin-bottom:15px;
+      background:$darkGrey;
+      color:#eee;
+    }
+
+    &__item {
+      margin:5px;
+      padding:5px;
+      cursor: pointer;
+
+      &:hover {
+        color: $green;
+      }
+
+      &--active {
+        color: $green;
+        border-left: 1px solid $darkGrey;
+        border-bottom: 1px solid $darkGrey;
+        margin-bottom:0;
+      }
+    }
+  }
+  &__layout {
+
+    &__item {
+
+      &--icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}

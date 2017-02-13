@@ -1,0 +1,80 @@
+// Use Susy for complete grid flexibilty
+@import "~susy/sass/susy";
+@import "~breakpoint-sass";
+
+
+.App {
+
+
+  @include container(480px);
+  padding:0 10px;
+  @include breakpoint(768px) {
+    @include container(95%);
+  }
+
+  &-header {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    background-color: #222;
+    height: 120px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+  }
+  &-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 50px;
+  }
+  &__sidebar{
+    @include span(12 of 12);
+    @include  breakpoint(800px) {
+      @include span(3 of 12);
+      position: fixed;
+    }
+    @include breakpoint(1280px) {
+      @include span(2 of 12);
+    }
+  }
+  &__main {
+    @include span(12 of 12);
+
+    @include breakpoint(800px) {
+      @include span(9 at 4 of 12);
+    }
+    @include breakpoint(1280px) {
+      @include span(10 at 3 of 12);
+    }
+
+
+  }
+
+
+  &-intro {
+    font-size: large;
+  }
+  &__footer {
+      @include span(12 of 12);
+      margin-top: 50px;
+      bottom:0;
+      left:0;
+      width: 100%;
+      border-top: 2px solid #DDD;
+
+      &__section {
+        padding: 30px 0;
+        list-style: none;
+        @include span(4 of 12);
+
+        li {
+          padding-left: 60px;
+        }
+
+        &:last-child {
+          @include span(4 at 9 of 12);
+        }
+      }
+
+  }
+}
