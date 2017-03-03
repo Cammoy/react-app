@@ -1,7 +1,11 @@
 import {combineReducers} from 'redux';
 
-import bikes from './bikes';
+import data from './data';
+import auth from './auth';
+import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
-  bikes,
+  data,
+  auth,
+  form: formReducer
 });

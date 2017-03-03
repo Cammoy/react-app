@@ -5,34 +5,34 @@ import Grid from '../../components/grid/'
 import Toolbar from '../../components/toolbar/'
 
 
-import * as BIKES from '../../redux/actions/bikes'
+import * as DATA from '../../redux/actions/'
 import { connect } from 'react-redux';
 
 @connect( (store) => {
   return {
-    bikes: store.bikes.bikes,
-    pending: store.bikes.pending,
-    rejected: store.bikes.rejected,
-    error: store.bikes.error,
-    filters: store.bikes.filters,
-    layout: store.bikes.layout
+    data: store.data.bikes,
+    pending: store.data.pending,
+    rejected: store.data.rejected,
+    error: store.data.error,
+    filters: store.data.filters,
+    layout: store.data.layout
   };
 })
 
 export default class Home extends Component {
 
   componentWillMount(){
-    this.props.dispatch( BIKES.fetchBikes() );
-    this.props.dispatch( BIKES.setLayout(localStore.get('layout')) );
+    this.props.dispatch( DATA.fetchBikes() );
+    this.props.dispatch( DATA.setLayout(localStore.get('layout')) );
 
     // Check local storage for filter and apply if exists
     const currentFilter = localStore.get('filterBy');
-    if(currentFilter) this.props.dispatch( BIKES.fetchBikes(currentFilter) );
+    if(currentFilter) this.props.dispatch( DATA.fetchBikes(currentFilter) );
   }
 
   filterBy(filter) {
 
-    this.props.dispatch( BIKES.fetchBikes(filter.target.innerHTML.trim() ) )
+    this.props.dispatch( DATA.fetchBikes(filter.target.innerHTML.trim() ) )
 
      // get all elements that match our selector
      const elements = document.querySelectorAll('.toolbar__filterBy__item');
@@ -51,12 +51,12 @@ export default class Home extends Component {
     if(mode === 'clear') {
       localStore.remove('filterBy');
       localStore.remove('layout');
-      this.props.dispatch( BIKES.fetchBikes() )
+      this.props.dispatch( DATA.fetchBikes() )
     }
-    // cset layout mode
+    // set layout mode
     else {
-      this.props.dispatch( BIKES.fetchBikes() )
-      this.props.dispatch( BIKES.setLayout(mode) )
+      this.props.dispatch( DATA.fetchBikes() )
+      this.props.dispatch( DATA.setLayout(mode) )
     }
   }
 
@@ -74,13 +74,13 @@ export default class Home extends Component {
       //console.log(localStore.get('layout') );
       const mode = localStore.get('layout');
       if( mode === 'list' )
-        layout = <List items={this.props.bikes}/>
+        layout = <List items={this.props.data}/>
 
       else if( mode === 'grid' )
-        layout = <Grid items={this.props.bikes}/>
+        layout = <Grid items={this.props.data}/>
 
       else
-        layout = <Grid items={this.props.bikes}/>
+        layout = <Grid items={this.props.data}/>
     }
 
     return layout;

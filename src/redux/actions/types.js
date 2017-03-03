@@ -1,0 +1,5 @@
+export const SET_LAYOUT     = 'set_layout'
+export const FETCH_DATA     = 'fetch_data'
+export const AUTH_USER      = 'auth_user'
+export const UNAUTH_USER    = 'unauth_user'
+export const AUTH_ERROR     = 'auth_error'

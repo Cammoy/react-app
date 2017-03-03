@@ -1,7 +1,9 @@
+// React Setup
+//------------------------------------------------------------------------------
+
 import React from 'react'
 import { Provider } from 'react-redux'
 import Store from './redux/store'
-import Home from './views/home/'
 import logo from './logo.svg'
 import './App.scss'
 

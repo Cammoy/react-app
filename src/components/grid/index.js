@@ -16,11 +16,11 @@ const Grid = ({items}) => {
   // Create grid rows
   if(items) {
     items = createGroupedArray(items, 3);
-    items = items.map( (item, i) => {
+    items = items.map( (item, index) => {
       let singles = item.map( (j, i)=> {
         return <Card key={i} item={j}/>
       })
-      return <div className="card-grid__row">{singles}</div>
+      return <div key={index} className="card-grid__row">{singles}</div>
     })
   }
 
