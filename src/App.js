@@ -2,7 +2,6 @@
 //------------------------------------------------------------------------------
 
 import React from 'react'
-import { Provider } from 'react-redux'
 import Store from './redux/store'
 import logo from './logo.svg'
 import './App.scss'
@@ -10,7 +9,6 @@ import './App.scss'
 const App = ({children}) => {
 
       return (
-        <Provider store={Store}>
           <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
@@ -19,7 +17,6 @@ const App = ({children}) => {
             <div className="App-intro"></div>
             {children}
           </div>
-        </Provider>
       );
 }
 

@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
+import localStore from 'store'
+
 
   export default (ComposedComponent) => {
 
@@ -12,12 +14,13 @@ import { connect } from 'react-redux';
 
      componentWillMount() {
 
-       if(!this.props.authenticated === true) {
+       if(!this.props.authenticated) {
          this.context.router.push('/')
        }
      }
 
-     componentWillUpdate(nextProps) {
+     componentDidUpdate(nextProps) {
+       localStore.remove('token')
        if(!nextProps.authenticated) {
          this.context.router.push('/')
        }

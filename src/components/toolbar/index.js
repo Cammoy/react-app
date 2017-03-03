@@ -16,7 +16,7 @@ const app = feathers()
   .configure(hooks())
   .configure(authentication());
 
-
+import {UNAUTH_USER} from '../../redux/actions/types'
 import React from 'react'
 import './style.scss'
 
@@ -36,11 +36,9 @@ const Toolbar = (props) => {
   const { classes, filterBy, layout } = props;
 
   const _logout = () => {
-
-    app.logout().then( () => {
-      browserHistory.push('/')
-      localStore.remove('token')
-    })
+    app.logout().then( () => props.dispatch({type: UNAUTH_USER}) )
+    localStore.remove('token')
+    browserHistory.replace('/')
   }
 
   // Build Class Filter

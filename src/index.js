@@ -1,18 +1,22 @@
 // React Setup
 //------------------------------------------------------------------------------
-import localStore from 'store'
+import localStore   from 'store'
 import store from './redux/store'
-import {AUTH_USER} from './redux/actions/types'
-import React    from 'react'
-import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import {AUTH_USER}  from './redux/actions/types'
+import React        from 'react'
+import ReactDOM     from 'react-dom'
 import { Router, Route, browserHistory, IndexRedirect } from 'react-router'
-import App      from './App'
-import Initial  from './components/initial/'
-import Login    from './components/login/'
-import Register from './components/register/'
-import Home     from './views/home/'
-import Error    from './components/error/'
-import reqAuth  from './components/auth/'
+import App          from './App'
+import Initial      from './components/initial/'
+import Login        from './components/login/'
+import Register     from './components/register/'
+import Home         from './views/home/'
+import Error        from './components/error/'
+
+// Router authentication higher order component
+//------------------------------------------------------------------------------
+import reqAuth      from './components/auth/'
 import './index.css'
 
 
@@ -27,6 +31,7 @@ if(localStore.get('token')) {
 //------------------------------------------------------------------------------
 
   ReactDOM.render(
+    <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={App}>
           <IndexRedirect to="/initial"/>
@@ -36,6 +41,7 @@ if(localStore.get('token')) {
           <Route path="/register" component={Register}/>
         </Route>
         <Route path="*" code={500} message="Did it work?" component={Error}/>
-      </Router>,
+      </Router>
+    </Provider>,
     document.getElementById('root')
   );

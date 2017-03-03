@@ -1,75 +1,52 @@
 import React, {Component} from 'react'
-import { Link, browserHistory } from 'react-router'
-import axios from 'axios';
+import {Link} from 'react-router'
+import { Field, reduxForm } from 'redux-form'
+import {registerUser} from '../../redux/actions/'
+import {connect} from 'react-redux'
 import './style.scss'
 
-class Register extends Component {
 
-  constructor(props) {
-    super(props);
+const Register= (props) => {
 
-    this.state = {
-      email: 'kwasi',
-      password: 'passion',
-      errors: []
+  const { handleSubmit, pristine, reset, submitting } = props
+
+  const _registerUser = (fields) => {
+    props.dispatch(registerUser(fields))
+  }
+  const _registerError = () => {
+    console.log('props',props);
+    if(props.errorMessage) {
+      return <div>{props.errorMessage}</div>
     }
   }
 
-  _onChange = (e) => {
-
-    let email = this.state.email,
-        password = this.state.password;
-
-    if(e.target.name === 'email' ) email = e.target.value
-    if(e.target.name === 'password') password = e.target.value
-
-    this.setState({
-      email,
-      password
-    }, () => {
-      console.log(this.state)
-    })
-  }
-
-  _register = (e) => {
-
-    axios.post('http://localhost:3030/users/', {
-      email: this.state.email,
-      password: this.state.password
-    })
-    .then( (response) => {
-      console.log(response);
-    })
-    .catch( (error) => {
-      console.error(error);
-    });
-
-  }
-
-  render() {
-
-    return(
-      <div className="initial">
-        <h1 className="initial__header">Ruby's Curated Travel App
-          <span className="initial__desc">
-            Lets get started
-          </span>
-        </h1>
-        <div className="initial__form">
-          <input className="initial__input" name="email" type="text" onChange={this._onChange} value={this.state.email}/>
-          <input className="initial__input" name="password" type="password" onChange={this._onChange} value={this.state.password}/>
-          <div className="initial__btn" onClick={this._register}>Register</div>
+  return(
+    <div>
+      <form onSubmit={handleSubmit(_registerUser)}>
+        <div>
+         <label htmlFor="email">Email</label>
+         <Field name="email" component="input" type="email"/>
         </div>
-        <h1>Already have an account</h1>
-        <Link className="initial__btn" to='/login'>Login</Link>
-      </div>
-    )
+        <div>
+         <label htmlFor="password">Password</label>
+         <Field name="password" component="input" type="password"/>
+        </div>
+          {_registerError()}
+        <button type="submit" disabled={pristine || submitting}>Register</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+      </form>
+
+      <h1>Already have an account?</h1>
+      <Link className="initial__btn" to='/login'>Login</Link>
+    </div>
+  )
+
+}
+
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.reg.error
   }
-
 }
-
-Register.propTypes = {
-  onClick: React.PropTypes.func
-}
-
-export default Register;
+const form = reduxForm({form: 'registerForm'})(Register);
+export default connect(mapStateToProps)(form)

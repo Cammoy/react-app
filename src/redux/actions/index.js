@@ -1,5 +1,19 @@
-import {ERROR_CODES, SERVER, MOCK_DATA} from '../../config'
-import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, FETCH_DATA, SET_LAYOUT} from './types'
+import {
+  ERROR_CODES,
+  SERVER_LOCAL,
+  SERVER_REG,
+  MOCK_DATA
+} from '../../config'
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR,
+  FETCH_DATA,
+  SET_LAYOUT,
+  REG_USER,
+  REG_ERROR
+} from './types'
+
 import localStore from 'store'
 import axios from 'axios'
 import {browserHistory} from 'react-router'
@@ -7,7 +21,7 @@ import {browserHistory} from 'react-router'
 
 
 
-// DATA ACTIONS
+// DATA ACTION CREATOR
 //-------------------------------------------------------
 
 export function fetchBikes(filter) {
@@ -52,24 +66,23 @@ export function setLayout(mode) {
  }
 }
 
+export function logOut() {
+ return {
+   type: UNAUTH_USER,
+   payload: false
+ }
+}
 
 
 
-
-
-
-
-
-
-
-// USER ACTIONS
+// USER ACTION CREATOR
 //-------------------------------------------------------
 
 export function loginUser(user) {
   console.log('user', user);
 
  return function(dispatch) {
-   axios.post(SERVER, {
+   axios.post(SERVER_LOCAL, {
      email: user.email,
      password: user.password
    })
@@ -89,11 +102,51 @@ export function loginUser(user) {
    .catch( (error) => {
 
      dispatch({type:UNAUTH_USER, payload:false})
+     localStore.remove('token')
 
       ERROR_CODES.forEach( (item)=> {
         if(error.response.status === item.code) {
            dispatch({
              type:AUTH_ERROR,
+             payload: item.message
+           })
+         }
+      })
+
+   });
+ }
+}
+
+
+
+// USER ACTION CREATOR
+//-------------------------------------------------------
+
+export function registerUser(user) {
+  console.log('user', user);
+
+ return function(dispatch) {
+   axios.post(SERVER_REG, {
+     email: user.email,
+     password: user.password
+   })
+   .then( (response) => {
+
+     dispatch({type:REG_USER})
+
+     // Redirect to home
+     //-------------------------------------------------------
+     browserHistory.push('/login')
+
+   })
+   .catch( (error) => {
+
+     dispatch({type:REG_ERROR, payload:false})
+
+      ERROR_CODES.forEach( (item)=> {
+        if(error.response.status === item.code) {
+           dispatch({
+             type:REG_ERROR,
              payload: item.message
            })
          }

@@ -1,5 +1,6 @@
-export const SERVER     = "http://localhost:3030/auth/local"
-export const MOCK_DATA  = "mock/data.json"
+export const SERVER_LOCAL   = "http://localhost:3030/auth/local"
+export const SERVER_REG     = "http://localhost:3030/users"
+export const MOCK_DATA      = "mock/data.json"
 
 export const ERROR_CODES = [
   {
@@ -13,5 +14,17 @@ export const ERROR_CODES = [
   {
     code: 403,
     message: 'Resource forbidden'
+  },
+  {
+    code: 404,
+    message: 'Resource not found'
+  },
+  {
+    code: 409,
+    message: 'Duplicate'
+  },
+  {
+    code: 500,
+    message: 'Unfortunately there was a server error, we have been notified.'
   }
 ];
