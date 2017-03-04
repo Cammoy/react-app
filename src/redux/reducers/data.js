@@ -1,6 +1,11 @@
 // Bikes Reducer
 import localStore from 'store'
-import CHANGE_AUTH from '../actions/types'
+import {
+  SET_LAYOUT,
+  FETCH_DATA,
+  FETCH_DATA_PENDING,
+  FETCH_DATA_REJECTED
+} from '../actions/types'
 
 const defaultState = {
     pending:true,
@@ -17,13 +22,13 @@ export default function reducer(state = defaultState, action) {
 
   switch (action.type) {
 
-    case "FETCH_BIKES_PENDING": {
+    case FETCH_DATA_PENDING: {
         return {...state={}, pending: true}
     }
-    case "FETCH_BIKES_REJECTED": {
+    case FETCH_DATA_REJECTED: {
         return {...state={}, rejected:true, pending:false, error:action.payload.status }
     }
-    case "FETCH_BIKES": {
+    case FETCH_DATA: {
 
       // Check if fitereing is in process
 
@@ -53,7 +58,7 @@ export default function reducer(state = defaultState, action) {
       }
     }
 
-    case "SET_LAYOUT": {
+    case SET_LAYOUT: {
 
       // Set layout in local storage
       //-------------------------------------------------------

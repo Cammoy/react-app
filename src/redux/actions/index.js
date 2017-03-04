@@ -8,10 +8,11 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  FETCH_DATA,
   SET_LAYOUT,
   REG_USER,
-  REG_ERROR
+  REG_ERROR,
+  FETCH_DATA,
+  FETCH_DATA_REJECTED
 } from './types'
 
 import localStore from 'store'
@@ -43,7 +44,7 @@ export function fetchBikes(filter) {
       })
 
       dispatch({
-          type:"FETCH_BIKES",
+          type:FETCH_DATA,
           payload:{
             data:res.data.items,
             filterBy:filter,
@@ -54,25 +55,17 @@ export function fetchBikes(filter) {
     }).catch( (err) => {
 
         // If there is an error display friendly message
-        dispatch({type:"FETCH_BIKES_REJECTED", payload:err.response})
+        dispatch({type:FETCH_DATA_REJECTED, payload:err.response})
     })
   }
 }
 
 export function setLayout(mode) {
  return {
-   type: 'SET_LAYOUT',
+   type: SET_LAYOUT,
    payload: mode
  }
 }
-
-export function logOut() {
- return {
-   type: UNAUTH_USER,
-   payload: false
- }
-}
-
 
 
 // USER ACTION CREATOR
@@ -96,7 +89,7 @@ export function loginUser(user) {
 
      // Redirect to home
      //-------------------------------------------------------
-     browserHistory.push('/home')
+     browserHistory.replace('/home')
 
    })
    .catch( (error) => {
@@ -136,7 +129,7 @@ export function registerUser(user) {
 
      // Redirect to home
      //-------------------------------------------------------
-     browserHistory.push('/login')
+     browserHistory.replace('/login')
 
    })
    .catch( (error) => {

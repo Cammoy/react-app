@@ -8,18 +8,18 @@ import Toolbar from '../../components/toolbar/'
 import * as DATA from '../../redux/actions/'
 import { connect } from 'react-redux';
 
-@connect( (store) => {
+function mapStateToProps( state ) {
   return {
-    data: store.data.bikes,
-    pending: store.data.pending,
-    rejected: store.data.rejected,
-    error: store.data.error,
-    filters: store.data.filters,
-    layout: store.data.layout
-  };
-})
+    data:     state.data.bikes,
+    pending:  state.data.pending,
+    rejected: state.data.rejected,
+    error:    state.data.error,
+    filters:  state.data.filters,
+    layout:   state.data.layout
+  }
+}
 
-export default class Home extends Component {
+ class Home extends Component {
 
   componentWillMount(){
     this.props.dispatch( DATA.fetchBikes() );
@@ -114,24 +114,9 @@ export default class Home extends Component {
         <main className="App__main">
           {this.layout(this.props.layout)}
         </main>
-        <footer className="App__footer">
-          <ul className="App__footer__section">
-            <li><a href="#">About The Bike Shop</a></li>
-            <li><a href="#">Locations</a></li>
-            <li><a href="#">Resorources</a></li>
-          </ul>
-          <ul className="App__footer__section">
-            <li><a href="#">Rewards</a></li>
-            <li><a href="#">Road Safety</a></li>
-            <li><a href="#">Maintenance</a></li>
-          </ul>
-          <ul className="App__footer__section">
-            <li><a href="#">Get intouch</a></li>
-            <li><a href="#">Road Safety</a></li>
-            <li><a href="#">Maintenance</a></li>
-          </ul>
-        </footer>
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps)(Home)
