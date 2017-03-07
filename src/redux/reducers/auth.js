@@ -1,7 +1,7 @@
 // import types constants
 import {AUTH_USER, UNAUTH_USER, AUTH_ERROR} from '../actions/types'
 
-export default function reducer(state = false, action) {
+export default function reducer(state = {authenticated:false}, action) {
 
   switch (action.type) {
     case AUTH_USER: {

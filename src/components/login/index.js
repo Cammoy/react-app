@@ -1,10 +1,31 @@
+// Feathers Setup
+//------------------------------------------------------------------------------
+
+const url = 'http://localhost:3030';
+import io             from 'socket.io-client';
+import feathers       from 'feathers/client';
+import hooks          from 'feathers-hooks';
+import socketio       from 'feathers-socketio/client';
+import authentication from 'feathers-authentication/client';
+import localStore from 'store'
+
+const socket = io(url);
+const app = feathers()
+  .configure(socketio(socket)) // you could use Primus or REST instead
+  .configure(hooks())
+  .configure(authentication());
+
+
+// React Setup
+//------------------------------------------------------------------------------
+
+import {GOOGLE} from '../../config'
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import { Field, reduxForm } from 'redux-form'
-import {loginUser} from '../../redux/actions/'
+import {loginUser, google} from '../../redux/actions/'
 import {connect} from 'react-redux'
 import './style.scss'
-
 
 const Login = (props) => {
 
@@ -18,6 +39,10 @@ const Login = (props) => {
     if(props.errorMessage) {
       return <div>{props.errorMessage}</div>
     }
+  }
+
+  const _google = () => {
+    props.dispatch(google())
   }
 
   return(
@@ -36,8 +61,12 @@ const Login = (props) => {
         <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
       </form>
 
-      <h1>No Account yet?</h1>
-      <Link className="initial__btn" to='/register'>Register</Link>
+        <ul>
+          <li><a href="http://localhost:3030/auth/google" >Sign In with Google</a></li>
+          <li><a href="http://localhost:3030/auth/github" >Sign In with Github</a></li>
+        </ul>
+        <h1>No Account yet?</h1>
+        <Link className="initial__btn" to='/register'>Register</Link>
     </div>
   )
 

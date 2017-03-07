@@ -1,11 +1,11 @@
 import localStore from 'store'
 import React, { Component } from 'react'
-import List from '../../components/list/'
-import Grid from '../../components/grid/'
-import Toolbar from '../../components/toolbar/'
+import List from '../components/list/'
+import Grid from '../components/grid/'
+import Toolbar from '../components/toolbar/'
 
 
-import * as DATA from '../../redux/actions/'
+import * as DATA from '../redux/actions/'
 import { connect } from 'react-redux';
 
 function mapStateToProps( state ) {

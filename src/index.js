@@ -1,18 +1,25 @@
 // React Setup
 //------------------------------------------------------------------------------
 import localStore   from 'store'
-import store from './redux/store'
-import { Provider } from 'react-redux'
-import {AUTH_USER}  from './redux/actions/types'
 import React        from 'react'
 import ReactDOM     from 'react-dom'
 import { Router, Route, browserHistory, IndexRedirect } from 'react-router'
+import store        from './redux/store'
+import { Provider } from 'react-redux'
+import {AUTH_USER}  from './redux/actions/types'
 import App          from './App'
 import Initial      from './components/initial/'
 import Login        from './components/login/'
 import Register     from './components/register/'
-import Home         from './views/home/'
 import Error        from './components/error/'
+
+// Views
+//------------------------------------------------------------------------------
+
+import Home         from './views/home'
+import ListingAdd      from './views/listingAdd'
+import ListingUpdate   from './views/listingUpdate'
+
 
 // Router authentication higher order component
 //------------------------------------------------------------------------------
@@ -39,8 +46,10 @@ if(localStore.get('token')) {
           <Route path="/initial" component={Initial}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
+          <Route path="/data/new" component={reqAuth(ListingAdd)}/>
+          <Route path="/data/update" component={reqAuth(ListingUpdate)}/>
         </Route>
-        <Route path="*" code={500} message="Did it work?" component={Error}/>
+        <Route path="*" code={500} message="Page Not Found!" component={Error}/>
       </Router>
     </Provider>,
     document.getElementById('root')

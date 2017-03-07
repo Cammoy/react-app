@@ -2,7 +2,8 @@ import {
   ERROR_CODES,
   SERVER_LOCAL,
   SERVER_REG,
-  MOCK_DATA
+  MOCK_DATA,
+  GOOGLE
 } from '../../config'
 import {
   AUTH_USER,
@@ -146,5 +147,55 @@ export function registerUser(user) {
       })
 
    });
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+// GOOGLE ACTION CREATOR
+//-------------------------------------------------------
+
+export function google(user) {
+  console.log('google', user);
+
+ return function(dispatch) {
+   axios.get(GOOGLE, {
+     headers: {'Access-Control-Allow-Origin': 'http://localhost:3030'}
+   })
+   .then( (response) => {
+      console.log('google res', response)
+   })
+   .catch( (error) => {
+
+      console.log('google res', error.response.status)
+      ERROR_CODES.forEach( (item)=> {
+        if(error.response.status === item.code) {
+
+
+         }
+      })
+
+   });
+ }
+}
+
+
+
+// Add Listing
+//-------------------------------------------------------
+
+export function addListing(listing) {
+  console.log(listing);
+ return {
+   type: SET_LAYOUT,
+   payload: 'grid'
  }
 }

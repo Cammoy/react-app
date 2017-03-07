@@ -1,14 +1,19 @@
 // React Setup
 //------------------------------------------------------------------------------
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin();
 
 import React from 'react'
 import Store from './redux/store'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import logo from './logo.svg'
 import './App.scss'
 
 const App = ({children}) => {
 
       return (
+        <MuiThemeProvider>
           <div className="App">
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
@@ -34,6 +39,7 @@ const App = ({children}) => {
               </ul>
             </footer>
           </div>
+        </MuiThemeProvider>
       );
 }
 
