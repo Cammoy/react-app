@@ -25,7 +25,21 @@ import {Link} from 'react-router'
 import { Field, reduxForm } from 'redux-form'
 import {loginUser, google} from '../../redux/actions/'
 import {connect} from 'react-redux'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import {
+  TextField,
+} from 'redux-form-material-ui'
 import './style.scss'
+
+
+// Validation functions
+//-----------------------------------------------------------------------------
+
+const required  = value => value == null ? 'Required' : undefined
+const email     = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email' : undefined
+const filedStyle = {width:'100%', float:'left', marginRight:'2%'};
+
 
 const Login = (props) => {
 
@@ -35,38 +49,46 @@ const Login = (props) => {
     props.dispatch(loginUser(fields))
   }
   const _loginError = () => {
-    console.log('props',props);
     if(props.errorMessage) {
       return <div>{props.errorMessage}</div>
     }
   }
 
-  const _google = () => {
-    props.dispatch(google())
-  }
-
   return(
-    <div>
+    <div className="reg">
       <form onSubmit={handleSubmit(_loginUser)}>
-        <div>
-         <label htmlFor="email">Email</label>
-         <Field name="email" component="input" type="email"/>
-        </div>
-        <div>
-         <label htmlFor="password">Password</label>
-         <Field name="password" component="input" type="password"/>
-        </div>
-          {_loginError()}
-        <button type="submit" disabled={pristine || submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+
+         <Field
+          className="reg__field"
+         style={filedStyle}
+         name="email"
+         type="email"
+         component={TextField}
+         floatingLabelText="Email"
+         validate={[ required, email ]}/>
+
+         <Field
+          className="reg__field"
+         style={filedStyle}
+         name="password"
+         type="password"
+         component={TextField}
+         floatingLabelText="Password"
+         validate={required}/>
+
+
+        {_loginError()}
+
+        <RaisedButton label="Login" primary={true} type="submit"
+          disabled={pristine || submitting} />
+
       </form>
 
-        <ul>
-          <li><a href="http://localhost:3030/auth/google" >Sign In with Google</a></li>
-          <li><a href="http://localhost:3030/auth/github" >Sign In with Github</a></li>
-        </ul>
-        <h1>No Account yet?</h1>
-        <Link className="initial__btn" to='/register'>Register</Link>
+      <div className="reg__message reg__message--action">
+        No Account yet?
+        <Link className="reg__message--action__btn" to='/register'>Register</Link>
+      </div>
+
     </div>
   )
 

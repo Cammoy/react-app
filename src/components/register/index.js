@@ -1,9 +1,33 @@
+import { ACCOUNT_TYPES } from '../../config'
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import { Field, reduxForm } from 'redux-form'
 import {registerUser} from '../../redux/actions/'
 import {connect} from 'react-redux'
+import { RadioButton } from 'material-ui/RadioButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import {
+  AutoComplete,
+  Checkbox,
+  DatePicker,
+  TimePicker,
+  RadioButtonGroup,
+  SelectField,
+  Slider,
+  TextField,
+  Toggle
+} from 'redux-form-material-ui'
 import './style.scss'
+
+
+// Validation functions
+//-----------------------------------------------------------------------------
+
+const required  = value => value == null ? 'Required' : undefined
+const email     = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email' : undefined
+const filedStyle = {width:'100%', float:'left', marginRight:'2%'};
+
 
 
 const Register= (props) => {
@@ -13,31 +37,70 @@ const Register= (props) => {
   const _registerUser = (fields) => {
     props.dispatch(registerUser(fields))
   }
+
   const _registerError = () => {
-    console.log('props',props);
+
     if(props.errorMessage) {
       return <div>{props.errorMessage}</div>
     }
   }
 
+  // Create Select Items from specified dataSource passed
+  //-----------------------------------------------------
+
+   const _selectItems = (items) => {
+
+     return items.map( (item, i) => {
+       return <RadioButton  key={i} value={item.name} label={item.text}/>
+     })
+   }
+
   return(
-    <div>
+    <div className="reg">
       <form onSubmit={handleSubmit(_registerUser)}>
-        <div>
-         <label htmlFor="email">Email</label>
-         <Field name="email" component="input" type="email"/>
-        </div>
-        <div>
-         <label htmlFor="password">Password</label>
-         <Field name="password" component="input" type="password"/>
-        </div>
-          {_registerError()}
-        <button type="submit" disabled={pristine || submitting}>Register</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+
+         <Field
+          className="reg__field"
+         style={filedStyle}
+         name="email"
+         type="email"
+         component={TextField}
+         floatingLabelText="Email"
+         validate={[ required, email ]}/>
+
+         <Field
+          className="reg__field"
+         style={filedStyle}
+         name="password"
+         type="password"
+         component={TextField}
+         floatingLabelText="Password"
+         validate={required}/>
+
+         <div
+          className="reg__field">
+          <label className="reg__field--radio_label">
+            Register as a Business or an Organiser?
+          </label>
+           <Field name="accountType" component={RadioButtonGroup}>
+              {_selectItems(ACCOUNT_TYPES)}
+            </Field>
+         </div>
+
+
+
+        {_registerError()}
+
+        <RaisedButton label="Register" primary={true} type="submit"
+          disabled={pristine || submitting} />
+
       </form>
 
-      <h1>Already have an account?</h1>
-      <Link className="initial__btn" to='/login'>Login</Link>
+      <div className="reg__message reg__message--action">
+        Already have an account?
+        <Link className="reg__message--action__btn" to='/login'>Login</Link>
+      </div>
+
     </div>
   )
 

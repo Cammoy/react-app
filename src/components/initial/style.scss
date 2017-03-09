@@ -1,7 +1,19 @@
+// Use Susy for complete grid flexibilty
+@import "~susy/sass/susy";
+@import "~breakpoint-sass";
+@import "../../scss/colors";
+
 .initial {
+  @include span(12 of 12);
   &__header {
     margin-bottom: 30px;
 
+  }
+  &__intro {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    text-align: center;
   }
   &__errors {
     color:red;
@@ -20,7 +32,6 @@
     display: block;
     margin-top:15px;
     color:darkBlue;
-    text-transform: uppercase;
     font-size: 18px;
   }
   &__form {

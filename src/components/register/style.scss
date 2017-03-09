@@ -1,0 +1,47 @@
+// Use Susy for complete grid flexibilty
+@import "~susy/sass/susy";
+@import "~breakpoint-sass";
+@import "../../scss/colors";
+
+.reg {
+
+  @include  breakpoint(800px) {
+    width:span(6 of 12);
+    margin:0 auto;
+  }
+
+  &__field {
+    @include span(12 of 12);
+    margin-bottom: 30px;
+
+    &--radio_label {
+      @include span(12 of 12);
+      margin-bottom: 15px;
+    }
+  }
+  &__message {
+
+    margin: 25px 0;
+    padding:10px;
+
+    &--action {
+      text-align: center;
+      border: 1px solid #EEE;
+      border-left:0;
+      border-right: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      vertical-align: middle;
+
+      &__btn {
+        margin: 5px;
+        display: inline-block;
+        background:#222;
+        color:#FFF;
+        padding: 3px 8px;
+        text-align: right;
+        text-decoration: none;
+      }
+    }
+  }
+}

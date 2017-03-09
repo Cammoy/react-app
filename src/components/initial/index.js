@@ -6,12 +6,14 @@ const Initial = () => {
 
   return(
     <div className="initial">
-      <h1 className="initial__header">Ruby's Curated Travel App</h1>
-      <div className="initial__desc">
-        Condimentum nisi pharetra interdum quisque auctor sem a mi bibendum a nisi.
+      <div className="initial__intro center_xy">
+        <h1 className="initial__header">Ruby's Curated Travel</h1>
+        <div className="initial__desc">
+          Condimentum nisi pharetra interdum quisque.
+        </div>
+        <Link className="initial__btn" to='/login'>Login</Link>
+        <Link className="initial__btn" to='/register'>Register</Link>
       </div>
-      <Link className="initial__btn" to='/login'>Login</Link>
-      <Link className="initial__btn" to='/register'>Register</Link>
     </div>
   )
 }

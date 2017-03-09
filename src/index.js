@@ -44,12 +44,13 @@ if(localStore.get('token')) {
           <IndexRedirect to="/initial"/>
           <Route path="/home" component={reqAuth(Home)}/>
           <Route path="/initial" component={Initial}/>
+          <Route path="/search" component={reqAuth(Home)}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
           <Route path="/data/new" component={reqAuth(ListingAdd)}/>
           <Route path="/data/update" component={reqAuth(ListingUpdate)}/>
+          <Route path="*" code={500} message="Page Not Found!" component={Error}/>
         </Route>
-        <Route path="*" code={500} message="Page Not Found!" component={Error}/>
       </Router>
     </Provider>,
     document.getElementById('root')

@@ -1,0 +1,11 @@
+@import "~susy/sass/susy";
+@import "~breakpoint-sass";
+@import "../../scss/colors";
+
+.fixedTop {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}

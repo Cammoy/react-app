@@ -1,27 +1,52 @@
 // Use Susy for complete grid flexibilty
 @import "~susy/sass/susy";
 @import "~breakpoint-sass";
+@import "./scss/colors";
+
+@mixin centerer_xy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center_y {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.center_xy {
+  @include centerer_xy;
+}
+.center_y {
+  @include center_y;
+}
 
 
-.App {
+.app {
 
+  @include container(100%);
 
-  @include container(480px);
-  padding:0 10px;
-  @include breakpoint(768px) {
-    @include container(95%);
+  &__content-wrap {
+    @include container(90%);
   }
 
   &-header {
+    padding-bottom: 150px;
+    background-color: $dark;
+    color:$light;
     position: fixed;
     top:0;
     left:0;
     width: 100%;
-    background-color: #222;
-    height: 120px;
     padding: 10px;
-    color: white;
     text-align: center;
+    z-index: 999;
+
+    &-container {
+      padding-bottom: 150px;
+    }
   }
   &-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -37,9 +62,9 @@
       @include span(2 of 12);
     }
   }
-  &__main {
-    @include span(12 of 12);
+  &__content {
 
+    @include span(12 of 12);
     @include breakpoint(800px) {
       @include span(9 at 4 of 12);
     }
@@ -55,6 +80,7 @@
     font-size: large;
   }
   &__footer {
+      display: none;
       @include span(12 of 12);
       margin-top: 50px;
       bottom:0;

@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
+import * as DATA from '../../redux/actions/'
 import { connect } from 'react-redux';
 import localStore from 'store'
-
+import AuthRoot from '../drawer/'
 
   export default (ComposedComponent) => {
 
@@ -16,18 +17,31 @@ import localStore from 'store'
 
        if(!this.props.authenticated) {
          this.context.router.push('/')
+       } else {
+
+         this.props.dispatch( DATA.fetchBikes() );
+         this.props.dispatch( DATA.setLayout(localStore.get('layout')) );
+
+         // Check local storage for filter and apply if exists
+         const currentFilter = localStore.get('filterBy');
+         if(currentFilter) this.props.dispatch( DATA.fetchBikes(currentFilter) );
        }
      }
 
      componentDidUpdate(nextProps) {
        localStore.remove('token')
        if(!nextProps.authenticated) {
-         this.context.router.push('/')
+         this.context.router.replace('/')
        }
      }
 
      render() {
-       return <ComposedComponent {...this.props}/>
+       return <div>
+         <AuthRoot>
+           <ComposedComponent {...this.props}/>
+         </AuthRoot>
+       </div>
+
      }
    }
 

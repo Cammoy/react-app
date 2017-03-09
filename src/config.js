@@ -42,15 +42,53 @@ export const ERROR_CODES = [
 export const DICTIONARY = {
   ADD_LISTING: 'Add Listing'
 }
-/* export const CATEGORIES = [
+
+
+// APP LISTING CATEGORIES
+//--------------------------------------------------------------
+
+export const CATEGORIES = [
   'Bar', 'Restaurant', 'Cafe', 'Hotel', 'Event', 'Attractions Sights',
-  'Physical activity/ exercise','Restaurant', 'Shopping Centre', 'Spa',
+  'Physical activity / exercise', 'Shopping Centre', 'Spa',
   'Taxi','Outdoor activity', 'Nature parks', 'Nail Salons',
   'Nail and Beauty Salon','Museum','Hair and Beauty Salon', 'Clubs',
   'Art Gallery'
-] */
-
-
-export const CATEGORIES = [
-  'Bar', 'Restaurant', 'Cafe', 'Event', 'Attractions Sights',
 ]
+
+// APP ADVANCE_BOOKING
+//--------------------------------------------------------------
+
+export const ADVANCE_BOOKING = ['Required', 'Not Required']
+
+// APP PARKING
+//--------------------------------------------------------------
+
+export const PARKING = [ 'Public', 'Private', 'No Parking' ]
+
+
+// APP ACCOUNT TYPES
+//--------------------------------------------------------------
+
+export const ACCOUNT_TYPES = [
+  {
+    name: 'business',
+    text: 'Business'
+  },
+  {
+    name: 'organiser',
+    text: 'Organiser'
+  },
+  {
+    name: 'user',
+    text: 'User'
+  }
+]
+
+// APP ADVANCE_BOOKING
+//--------------------------------------------------------------
+export const SETTINGS = {
+  APP: {
+    TITLE: 'Ruby Curated Travel App'
+  },
+  EXPIRE: 30
+}
