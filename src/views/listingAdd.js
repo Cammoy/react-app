@@ -1,7 +1,7 @@
 
 import {DICTIONARY} from '../config'
 import React        from 'react'
-import {addListing} from '../redux/actions/'
+import { addListing, insertListing } from '../redux/actions/'
 import Form         from '../components/listingForm/'
 import {connect}    from 'react-redux'
 

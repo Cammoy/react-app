@@ -1,9 +1,11 @@
-export const SET_LAYOUT             = 'set_layout'
 export const AUTH_USER              = 'auth_user'
 export const UNAUTH_USER            = 'unauth_user'
 export const AUTH_ERROR             = 'auth_error'
 export const REG_USER               = 'reg_user'
 export const REG_ERROR              = 'reg_error'
+
 export const FETCH_DATA             = 'fetch_data'
-export const FETCH_DATA_PENDING      = 'fetch_data_pending'
+export const FETCH_DATA_PENDING     = 'fetch_data_pending'
 export const FETCH_DATA_REJECTED    = 'fetch_rejected'
+export const ADD_LISTING            = 'add_listing'
+export const LISTING_ERROR          = 'listing_error'

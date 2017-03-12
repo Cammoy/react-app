@@ -33,19 +33,17 @@
   }
 
   &-header {
-    padding-bottom: 150px;
     background-color: $dark;
     color:$light;
     position: fixed;
     top:0;
     left:0;
     width: 100%;
-    padding: 10px;
     text-align: center;
     z-index: 999;
 
     &-container {
-      padding-bottom: 150px;
+      padding-bottom: 100px;
     }
   }
   &-logo {

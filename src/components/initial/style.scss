@@ -49,18 +49,6 @@
     border-radius: 8px;
   }
   &__btn {
-    display: inline-block;
     margin: 15px;
-    border: 1px solid #EEE;
-    color:#111;
-    padding:15px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-
-    &:hover {
-      background: #666;
-      color:#EEE;
-      transition: ease .8s;
-    }
   }
 }

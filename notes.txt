@@ -14,3 +14,58 @@ if( !this.props.auth ) {
     children = <Error code={401} message="Not Authorised"/>
   }
 }
+
+
+<Stepper activeStep={stepIndex} orientation="vertical">
+
+  {/******************************************************************/}
+
+  <Step>
+    <StepLabel>Business Name & Category</StepLabel>
+    <StepContent>
+
+      {this.renderStepActions(0)}
+    </StepContent>
+  </Step>
+
+  {/******************************************************************/}
+
+  <Step>
+    <StepLabel>Address</StepLabel>
+    <StepContent>
+
+      {this.renderStepActions(2)}
+    </StepContent>
+  </Step>
+
+  {/******************************************************************/}
+
+  <Step>
+    <StepLabel>Opening Times & Contact</StepLabel>
+    <StepContent>
+
+      {this.renderStepActions(3)}
+    </StepContent>
+  </Step>
+
+  {/******************************************************************/}
+
+  <Step>
+    <StepLabel>Social Media Links</StepLabel>
+    <StepContent>
+
+      {this.renderStepActions(4)}
+    </StepContent>
+  </Step>
+
+  {/******************************************************************/}
+
+  <Step>
+    <StepLabel>Other Information</StepLabel>
+    <StepContent>
+
+      {this.renderStepActions(5)}
+    </StepContent>
+  </Step>
+
+</Stepper>

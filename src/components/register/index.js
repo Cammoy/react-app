@@ -1,22 +1,14 @@
 import { ACCOUNT_TYPES } from '../../config'
-import React, {Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router'
 import { Field, reduxForm } from 'redux-form'
 import {registerUser} from '../../redux/actions/'
 import {connect} from 'react-redux'
 import { RadioButton } from 'material-ui/RadioButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
 import {
-  AutoComplete,
-  Checkbox,
-  DatePicker,
-  TimePicker,
   RadioButtonGroup,
-  SelectField,
-  Slider,
   TextField,
-  Toggle
 } from 'redux-form-material-ui'
 import './style.scss'
 
@@ -32,7 +24,7 @@ const filedStyle = {width:'100%', float:'left', marginRight:'2%'};
 
 const Register= (props) => {
 
-  const { handleSubmit, pristine, reset, submitting } = props
+  const { handleSubmit, pristine, submitting } = props
 
   const _registerUser = (fields) => {
     props.dispatch(registerUser(fields))

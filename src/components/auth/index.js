@@ -1,8 +1,22 @@
 import React, {Component} from 'react'
-import * as DATA from '../../redux/actions/'
 import { connect } from 'react-redux';
 import localStore from 'store'
 import AuthRoot from '../drawer/'
+
+/*
+  Check if use changed url will ensure that
+  if a user deleted the token or press the back button
+  they are re-authenticated
+*/
+
+import store        from '../../redux/store'
+import { browserHistory } from 'react-router'
+browserHistory.listen(function(ev) {
+  //console.log('listen', ev.pathname);
+  if( localStore.get('token') === undefined) {
+    store.dispatch({type:'unauth_user'})
+  }
+});
 
   export default (ComposedComponent) => {
 
@@ -16,32 +30,23 @@ import AuthRoot from '../drawer/'
      componentWillMount() {
 
        if(!this.props.authenticated) {
-         this.context.router.push('/')
-       } else {
-
-         this.props.dispatch( DATA.fetchBikes() );
-         this.props.dispatch( DATA.setLayout(localStore.get('layout')) );
-
-         // Check local storage for filter and apply if exists
-         const currentFilter = localStore.get('filterBy');
-         if(currentFilter) this.props.dispatch( DATA.fetchBikes(currentFilter) );
+         this.context.router.replace('/')
        }
      }
 
-     componentDidUpdate(nextProps) {
-       localStore.remove('token')
+     componentWillUpdate(nextProps) {
        if(!nextProps.authenticated) {
+         localStore.remove('token')
          this.context.router.replace('/')
        }
      }
 
      render() {
-       return <div>
+       return (
          <AuthRoot>
            <ComposedComponent {...this.props}/>
          </AuthRoot>
-       </div>
-
+       )
      }
    }
 

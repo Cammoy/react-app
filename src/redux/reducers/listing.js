@@ -1,13 +1,14 @@
 // import types constants
-import {REG_USER, REG_ERROR} from '../actions/types'
+import { ADD_LISTING, LISTING_ERROR } from '../actions/types'
 
 export default function reducer(state = false, action) {
 
   switch (action.type) {
-    case REG_USER: {
-      return {...state, registration: true }
+    case ADD_LISTING: {
+      return {...state, listed: true }
     }
-    case REG_ERROR: {
+    case LISTING_ERROR: {
+      console.log('in store', action.payload)
       return {...state, error: action.payload }
     }
     default: {}

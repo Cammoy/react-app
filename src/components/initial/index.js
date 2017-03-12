@@ -1,6 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router'
+import RaisedButton from 'material-ui/RaisedButton';
+import IconLogin from 'material-ui/svg-icons/social/person-outline';
+import IconRegister from 'material-ui/svg-icons/navigation/arrow-forward';
+import { browserHistory } from 'react-router'
 import './style.scss'
+
 
 const Initial = () => {
 
@@ -11,8 +15,23 @@ const Initial = () => {
         <div className="initial__desc">
           Condimentum nisi pharetra interdum quisque.
         </div>
-        <Link className="initial__btn" to='/login'>Login</Link>
-        <Link className="initial__btn" to='/register'>Register</Link>
+        <RaisedButton
+          className="initial__btn"
+          label="LOGIN"
+          labelPosition="after"
+          primary={true}
+          icon={<IconLogin />}
+          onClick={ ()=> browserHistory.push("login")}
+        />
+
+        <RaisedButton
+          className="initial__btn"
+          label="REGISTER"
+          labelPosition="after"
+          primary={true}
+          icon={<IconRegister />}
+          onClick={ ()=> browserHistory.push("register")}
+        />
       </div>
     </div>
   )

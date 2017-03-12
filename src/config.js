@@ -2,11 +2,12 @@
 // APP CONFIGURATION FILE
 //--------------------------------------------------------------
 
-       let  SERVER          = "http://localhost:3030"
-export const MOCK_DATA      = "mock/data.json"
-export const SERVER_LOCAL   = SERVER + "/auth/local"
-export const SERVER_REG     = SERVER + "/users"
-export const GOOGLE         = SERVER + "/auth/google"
+       let  SERVER              = "http://localhost:3030"
+export const MOCK_DATA          = "../mock/data.json"
+export const SERVER_LOCAL       = SERVER + "/auth/local"
+export const SERVER_REG         = SERVER + "/users"
+export const GOOGLE             = SERVER + "/auth/google"
+export const SERVER_LISTING     = SERVER + "/listings"
 
 
 export const ERROR_CODES = [
@@ -48,7 +49,7 @@ export const DICTIONARY = {
 //--------------------------------------------------------------
 
 export const CATEGORIES = [
-  'Bar', 'Restaurant', 'Cafe', 'Hotel', 'Event', 'Attractions Sights',
+  'Bar', 'Restaurant', 'Cafe', 'Hotel', 'Events', 'Attractions Sights',
   'Physical activity / exercise', 'Shopping Centre', 'Spa',
   'Taxi','Outdoor activity', 'Nature parks', 'Nail Salons',
   'Nail and Beauty Salon','Museum','Hair and Beauty Salon', 'Clubs',
@@ -88,7 +89,7 @@ export const ACCOUNT_TYPES = [
 //--------------------------------------------------------------
 export const SETTINGS = {
   APP: {
-    TITLE: 'Ruby Curated Travel App'
+    TITLE: 'Ruby Curated Travel'
   },
   EXPIRE: 30
 }

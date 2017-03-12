@@ -1,5 +1,5 @@
 // import types constants
-import {AUTH_USER, UNAUTH_USER, AUTH_ERROR} from '../actions/types'
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from '../actions/types'
 
 export default function reducer(state = {authenticated:false}, action) {
 
@@ -8,11 +8,12 @@ export default function reducer(state = {authenticated:false}, action) {
       return {...state, authenticated: true }
     }
     case UNAUTH_USER: {
-      return {...state, authenticated: action.payload }
+      return {...state, authenticated: false }
     }
     case AUTH_ERROR: {
       return {...state, error: action.payload }
     }
+    default: {}
   }
 
   return state;

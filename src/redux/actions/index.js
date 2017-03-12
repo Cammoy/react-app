@@ -1,81 +1,78 @@
+// Import Config and Action Types
+//------------------------------------------------------------------------------
+
 import {
   ERROR_CODES,
   SERVER_LOCAL,
   SERVER_REG,
   MOCK_DATA,
-  GOOGLE
+  SERVER_LISTING
 } from '../../config'
+
 import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  SET_LAYOUT,
   REG_USER,
   REG_ERROR,
   FETCH_DATA,
-  FETCH_DATA_REJECTED
+  FETCH_DATA_REJECTED,
+  ADD_LISTING,
+  LISTING_ERROR
 } from './types'
 
-import localStore from 'store'
+
+// Feathers Setup
+//------------------------------------------------------------------------------
+
+const url = 'http://localhost:3030';
+import io             from 'socket.io-client';
+import feathers       from 'feathers/client';
+import hooks          from 'feathers-hooks';
+import socketio       from 'feathers-socketio/client';
+import authentication from 'feathers-authentication-client';
+import localStore     from 'store'
+
+const socket = io(url);
+const app = feathers()
+  .configure(socketio(socket)) // you could use Primus or REST instead
+  .configure(hooks())
+  .configure(authentication());
+
+
 import axios from 'axios'
 import {browserHistory} from 'react-router'
+const token = localStore.get('token');
 
 
-
-
-// DATA ACTION CREATOR
+// LISTINGS ACTION CREATOR
 //-------------------------------------------------------
 
-export function fetchBikes(filter) {
+export function fetchListings(filter) {
 
-  return function(dispatch) {
-
-    const filters = [];
+  return (dispatch) => {
 
     axios.get(MOCK_DATA)
     .then( (res) => {
 
-      /* Create filters based on avalible content
-       i.e you can never filter by an item that does not exist */
-
-      res.data.items.forEach( (item) => {
-        item.class.forEach( (i) => {
-          if(!filters.includes(i)) filters.push(i);
-        });
-      })
-
       dispatch({
           type:FETCH_DATA,
-          payload:{
-            data:res.data.items,
-            filterBy:filter,
-            filters: filters
-          }
+          payload: res.data.items
       })
 
     }).catch( (err) => {
-
-        // If there is an error display friendly message
-        dispatch({type:FETCH_DATA_REJECTED, payload:err.response})
+        dispatch({type:FETCH_DATA_REJECTED})
     })
   }
 }
 
-export function setLayout(mode) {
- return {
-   type: SET_LAYOUT,
-   payload: mode
- }
-}
-
-
-// USER ACTION CREATOR
+// LOGIN ACTION CREATOR
 //-------------------------------------------------------
 
 export function loginUser(user) {
-  console.log('user', user);
 
- return function(dispatch) {
+ return (dispatch) => {
+
    axios.post(SERVER_LOCAL, {
      email: user.email,
      password: user.password
@@ -86,7 +83,7 @@ export function loginUser(user) {
 
      // Set auth in local storage
      //-------------------------------------------------------
-     localStore.set('token', response.data.token )
+     localStore.set('token', response.data.token );
 
      // Redirect to home
      //-------------------------------------------------------
@@ -95,7 +92,7 @@ export function loginUser(user) {
    })
    .catch( (error) => {
 
-     dispatch({type:UNAUTH_USER, payload:false})
+     dispatch({type:UNAUTH_USER})
      localStore.remove('token')
 
       ERROR_CODES.forEach( (item)=> {
@@ -113,13 +110,13 @@ export function loginUser(user) {
 
 
 
-// USER ACTION CREATOR
+// REGISTER ACTION CREATOR
 //-------------------------------------------------------
 
 export function registerUser(user) {
-  console.log('user', user);
 
- return function(dispatch) {
+ return (dispatch) => {
+
    axios.post(SERVER_REG, {
      email: user.email,
      password: user.password
@@ -151,35 +148,38 @@ export function registerUser(user) {
 }
 
 
-
-
-
-
-
-
-
-
-
-// GOOGLE ACTION CREATOR
+// ADD LISTING ACTION CREATOR
 //-------------------------------------------------------
 
-export function google(user) {
-  console.log('google', user);
 
- return function(dispatch) {
-   axios.get(GOOGLE, {
-     headers: {'Access-Control-Allow-Origin': 'http://localhost:3030'}
-   })
+export function addListing(listing) {
+  console.log('Listing', listing);
+
+  let config = {
+  headers: { Authorization: token }
+  };
+
+ return (dispatch) => {
+   axios.post(SERVER_LISTING, listing, config )
    .then( (response) => {
-      console.log('google res', response)
+
+     dispatch({type:ADD_LISTING, payload:true})
+
+     // Redirect to home
+     //-------------------------------------------------------
+     browserHistory.replace('/home')
+
    })
    .catch( (error) => {
+     console.log( 'ERROR MESSAGE: ',error.response )
 
-      console.log('google res', error.response.status)
       ERROR_CODES.forEach( (item)=> {
         if(error.response.status === item.code) {
 
-
+           dispatch({
+             type:LISTING_ERROR,
+             payload: item.message
+           })
          }
       })
 
@@ -188,14 +188,31 @@ export function google(user) {
 }
 
 
-
-// Add Listing
+// INSERT LISTING ACTION CREATOR
 //-------------------------------------------------------
 
-export function addListing(listing) {
-  console.log(listing);
- return {
-   type: SET_LAYOUT,
-   payload: 'grid'
- }
+export function insertListing(listing) {
+
+    return (dispatch) => {
+
+      // Get the listing service
+      const listingsService = app.service('listings');
+
+    // Create a new listing from submitted form input
+    listingsService.create(listing, {token: localStore.get('token')} ).then(() => {
+
+      dispatch({type:ADD_LISTING, payload:true})
+
+      // Redirect to home
+      browserHistory.replace('/home');
+
+    }).catch( (error) => {
+
+      dispatch({
+        type:LISTING_ERROR,
+        payload: error
+      })
+
+    })
+  }
 }

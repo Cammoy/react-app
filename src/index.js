@@ -1,5 +1,3 @@
-// React Setup
-//------------------------------------------------------------------------------
 import localStore   from 'store'
 import React        from 'react'
 import ReactDOM     from 'react-dom'
@@ -16,9 +14,10 @@ import Error        from './components/error/'
 // Views
 //------------------------------------------------------------------------------
 
-import Home         from './views/home'
-import ListingAdd      from './views/listingAdd'
-import ListingUpdate   from './views/listingUpdate'
+import Home             from './views/home'
+import Listings         from './views/listings'
+import ListingAdd       from './views/listingAdd'
+import ListingUpdate    from './views/listingUpdate'
 
 
 // Router authentication higher order component
@@ -47,8 +46,9 @@ if(localStore.get('token')) {
           <Route path="/search" component={reqAuth(Home)}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
-          <Route path="/data/new" component={reqAuth(ListingAdd)}/>
-          <Route path="/data/update" component={reqAuth(ListingUpdate)}/>
+          <Route path="/listings" component={reqAuth(Listings)}/>
+          <Route path="/listing/add" component={reqAuth(ListingAdd)}/>
+          <Route path="/listing/update" component={reqAuth(ListingUpdate)}/>
           <Route path="*" code={500} message="Page Not Found!" component={Error}/>
         </Route>
       </Router>

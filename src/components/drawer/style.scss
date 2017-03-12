@@ -9,3 +9,9 @@
     right: 0;
     text-align: center;
 }
+.custom-drawer{
+  &__content {
+    @include container(100%)
+    margin: 100px 0;
+  }
+}
