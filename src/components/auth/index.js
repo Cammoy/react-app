@@ -3,20 +3,11 @@ import { connect } from 'react-redux';
 import localStore from 'store'
 import AuthRoot from '../drawer/'
 
-/*
-  Check if use changed url will ensure that
-  if a user deleted the token or press the back button
-  they are re-authenticated
-*/
 
-import store        from '../../redux/store'
+
+import store from '../../redux/store'
 import { browserHistory } from 'react-router'
-browserHistory.listen(function(ev) {
-  //console.log('listen', ev.pathname);
-  if( localStore.get('token') === undefined) {
-    store.dispatch({type:'unauth_user'})
-  }
-});
+
 
   export default (ComposedComponent) => {
 
@@ -39,6 +30,19 @@ browserHistory.listen(function(ev) {
          localStore.remove('token')
          this.context.router.replace('/')
        }
+     }
+
+    componentWillUnmount() {
+      /*
+       Listen for navigation and check if the user is still authenticated
+        If a user deletes the token or clicked the back button then
+        user needs to be re-authenticated
+      */
+       browserHistory.listen(function(ev) {
+         if( localStore.get('token') === undefined ) {
+           store.dispatch({type:'unauth_user'})
+         }
+       });
      }
 
      render() {
