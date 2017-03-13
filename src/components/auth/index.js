@@ -2,9 +2,6 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import localStore from 'store'
 import AuthRoot from '../drawer/'
-
-
-
 import store from '../../redux/store'
 import { browserHistory } from 'react-router'
 

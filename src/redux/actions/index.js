@@ -18,19 +18,20 @@ import {
   FETCH_DATA,
   FETCH_DATA_REJECTED,
   ADD_LISTING,
-  LISTING_ERROR
+  LISTING_ERROR,
+  FAVE_TOGGLE
 } from './types'
 
 
 // Feathers Setup
 //------------------------------------------------------------------------------
 
-const url = 'http://localhost:3030';
-import io             from 'socket.io-client';
-import feathers       from 'feathers/client';
-import hooks          from 'feathers-hooks';
-import socketio       from 'feathers-socketio/client';
-import authentication from 'feathers-authentication-client';
+const url = 'http://localhost:3030'
+import io             from 'socket.io-client'
+import feathers       from 'feathers/client'
+import hooks          from 'feathers-hooks'
+import socketio       from 'feathers-socketio/client'
+import authentication from 'feathers-authentication-client'
 import localStore     from 'store'
 
 const socket = io(url);
@@ -39,25 +40,26 @@ const app = feathers()
   .configure(hooks())
   .configure(authentication());
 
-
 import axios from 'axios'
 import {browserHistory} from 'react-router'
-const token = localStore.get('token');
+const AUTH_TOKEN = localStore.get('token')
+
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 
 // LISTINGS ACTION CREATOR
 //-------------------------------------------------------
 
-export function fetchListings(filter) {
+export function fetchListings() {
 
   return (dispatch) => {
 
-    axios.get(MOCK_DATA)
+    axios.get(SERVER_LISTING)
     .then( (res) => {
 
       dispatch({
           type:FETCH_DATA,
-          payload: res.data.items
+          payload: res.data.data
       })
 
     }).catch( (err) => {
@@ -65,6 +67,7 @@ export function fetchListings(filter) {
     })
   }
 }
+
 
 // LOGIN ACTION CREATOR
 //-------------------------------------------------------
@@ -155,12 +158,8 @@ export function registerUser(user) {
 export function addListing(listing) {
   console.log('Listing', listing);
 
-  let config = {
-  headers: { Authorization: token }
-  };
-
  return (dispatch) => {
-   axios.post(SERVER_LISTING, listing, config )
+   axios.post(SERVER_LISTING, listing )
    .then( (response) => {
 
      dispatch({type:ADD_LISTING, payload:true})
@@ -188,7 +187,7 @@ export function addListing(listing) {
 }
 
 
-// INSERT LISTING ACTION CREATOR
+// INSERT LISTING ACTION CREATOR - NOT USED ATM
 //-------------------------------------------------------
 
 export function insertListing(listing) {
@@ -199,7 +198,7 @@ export function insertListing(listing) {
       const listingsService = app.service('listings');
 
     // Create a new listing from submitted form input
-    listingsService.create(listing, {token: localStore.get('token')} ).then(() => {
+    listingsService.create(listing, {token: AUTH_TOKEN} ).then(() => {
 
       dispatch({type:ADD_LISTING, payload:true})
 
@@ -214,5 +213,16 @@ export function insertListing(listing) {
       })
 
     })
+  }
+}
+
+
+// Favouties Toggle
+//--------------------------------------
+
+export function faveToggle(item) {
+  return {
+      type: FAVE_TOGGLE,
+      payload: item
   }
 }

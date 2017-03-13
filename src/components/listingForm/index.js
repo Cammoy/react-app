@@ -2,31 +2,12 @@ import { CATEGORIES, ADVANCE_BOOKING, PARKING } from '../../config'
 import React from 'react'
 import { connect } from 'react-redux'
 
-
 // REDUX FORM AND MATERIAL UI IMPORTS
 //------------------------------------------------------------------------------
 
-//import GoogleMapsLoader from 'google-maps'
-import { reduxForm, formValueSelector } from 'redux-form'
-//import { RadioButton } from 'material-ui/RadioButton'
+import { reduxForm } from 'redux-form'
 import MenuItem  from 'material-ui/MenuItem'
-
-
-// IMPORT FIELD WRAPPERS
-//------------------------------------------------------------------------------
-
-/* import {
-  AutoComplete,
-  Checkbox,
-  DatePicker,
-  TimePicker,
-  RadioButtonGroup,
-  SelectField,
-  Slider,
-  TextField,
-  Toggle
-} from 'redux-form-material-ui' */
-
+import RaisedButton from 'material-ui/RaisedButton'
 
 // IMPORT PARTIALS
 //------------------------------------------------------------------------------
@@ -36,17 +17,14 @@ import General        from './partials/general'
 import OpeningTimes   from './partials/openingTimes'
 import Other          from './partials/otherInfo'
 import Contact        from './partials/contact'
-import Social         from './partials/contact'
+import Social         from './partials/social'
 
-
-
-import FormStepper from '../stepper/'
+import HotStepper from '../stepper/'
 import './style.scss'
-
 
 const ListingForm = (props) => {
 
-  const { handleSubmit, action, error } = props;
+  const { handleSubmit, pristine, submitting, action } = props;
 
 
   // Validation functions
@@ -97,13 +75,10 @@ const ListingForm = (props) => {
         label: 'Event Details',
         component: <Event required={required} fieldStyle={fieldStyle}/>
       },
+
       {
         label: 'Address',
         component: <Address required={required} fieldStyle={fieldStyle}/>
-      },
-      {
-        label: 'Opening Times',
-        component: <OpeningTimes required={required} fieldStyle={fieldStyle}/>
       },
       {
         label: 'Contact',
@@ -112,6 +87,10 @@ const ListingForm = (props) => {
       {
         label: 'Social Links',
         component: <Social required={required} fieldStyle={fieldStyle}/>
+      },
+      {
+        label: 'Opening Times',
+        component: <OpeningTimes required={required} fieldStyle={fieldStyle}/>
       },
       {
         label: 'Additional Details',
@@ -123,29 +102,32 @@ const ListingForm = (props) => {
           required={required}
           fieldStyle={fieldStyle}/>
       }
+
     ]
   }
 
+  const _addListing = (fields) => {
+    props.dispatch(action(fields))
+  }
 
   return (
-    <div className="listingForm">
-      <form onSubmit={handleSubmit(action)}>
-      {<FormStepper steps={_dynamicSteps()}/>}
-      {error}
+      <form onSubmit={handleSubmit(_addListing)}>
+        <HotStepper steps={_dynamicSteps()}/>
+        <RaisedButton label="Register" primary={true} type="submit"
+          disabled={pristine || submitting} />
       </form>
-    </div>
   );
 }
 
 
 // Decorate with connect to read form values
-const selector = formValueSelector('listingForm');
+// const selector = formValueSelector('listingForm');
+// category: selector(state, 'category')
+
 
 function mapStateToProps(state) {
-
   return {
-    errorMessage: state.data.error,
-    category: selector(state, 'category')
+    //errorMessage: state.data.error,
   }
 }
 const form = reduxForm({form: 'listingForm' })(ListingForm);

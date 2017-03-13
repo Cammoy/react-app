@@ -1,6 +1,7 @@
 
 // Listings Reducer
 //------------------------------------------------------------------------------
+import moment from 'moment'
 
 import {
   FETCH_DATA,
@@ -12,7 +13,7 @@ const defaultState = {
     pending:true,
     error:false,
     rejected:false,
-    auth:false
+    whatson: []
 }
 
 export default function reducer(state = defaultState, action) {
@@ -26,7 +27,25 @@ export default function reducer(state = defaultState, action) {
         return {...state={}, pending:false, rejected:true }
     }
     case FETCH_DATA: {
-      return { ...state={}, pending: false, payload: action.payload }
+
+      // Events happening the the next 7 days include today
+      //-----------------------------------------------------------------
+
+      let whatson = [], eventEndDate,
+          curWeek = moment().add(100, 'days').valueOf(),
+          now     = moment().valueOf();
+
+          action.payload.map( (item) => {
+          eventEndDate = moment(item.eventEndDate, "YYYY/MM/DD").valueOf();
+            if( eventEndDate && eventEndDate >= now && eventEndDate <= curWeek )
+              {
+                whatson.push(item._id);
+            }
+      })
+
+
+
+      return { ...state={}, pending: false, data:action.payload, whatson  }
     }
     default: {}
 

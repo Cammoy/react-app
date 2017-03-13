@@ -1,5 +1,5 @@
 /***
-  Custom Dynamic Stepper Component 
+  Custom Dynamic Stepper Component
   will publish on npm when few more features and tests are added
 ***/
 
@@ -13,13 +13,12 @@ import {
   StepContent,
 } from 'material-ui/Stepper'
 
-class FormStepper extends Component {
+class HotStepper extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      finished: false,
       stepIndex: 0,
     };
   }
@@ -46,7 +45,6 @@ class FormStepper extends Component {
     const {stepIndex} = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= this.props.steps.length,
     });
   };
 
@@ -64,8 +62,15 @@ class FormStepper extends Component {
     return (
       <div style={{margin: '12px 0'}}>
 
-        {stepIndex === this.props.steps.length ?
-          <h1>TEST</h1>
+        { stepIndex === this.props.steps.length -1 ?
+          <RaisedButton
+            label='Finished'
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            primary={true}
+            onTouchTap={this.handleNext}
+            style={{marginRight: 12}}
+          />
           :
           <RaisedButton
             label='Next'
@@ -92,29 +97,14 @@ class FormStepper extends Component {
 
   render() {
 
-    const { finished, stepIndex } = this.state;
+    const { stepIndex } = this.state;
 
     return(
-      <div>
         <Stepper activeStep={stepIndex} orientation="vertical">
           {this._stepper(this.props.steps)}
         </Stepper>
-
-        {finished && (
-
-          <p style={{margin: '20px 0', textAlign: 'center'}}>
-            <a href="#" onClick={(event) => {
-                event.preventDefault();
-                this.setState({stepIndex: 0, finished: false});
-              }} >
-              Click here
-            </a> to reset the example.
-          </p>
-
-        )}
-      </div>
     )
   }
 }
 
-export default FormStepper;
+export default HotStepper;

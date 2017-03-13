@@ -8,7 +8,6 @@ export default function reducer(state = false, action) {
       return {...state, listed: true }
     }
     case LISTING_ERROR: {
-      console.log('in store', action.payload)
       return {...state, error: action.payload }
     }
     default: {}

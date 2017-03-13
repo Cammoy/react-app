@@ -30,11 +30,6 @@ export default class Root extends Component {
 
   onRequestChange = () => this.setState({open:true});
 
-  _goToLink() {
-
-    this.handleToggle;
-  }
-
   render() {
 
     const searchToggle = (
