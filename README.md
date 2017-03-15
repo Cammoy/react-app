@@ -15,4 +15,4 @@ App Powered by:
  - Wrtie tests (Mocha, Chai & Jsdom)
  -
  # Notes
- Needs a backend API that I have but have not uploaded because feathers can be a bit buggy.
+ Needs a backend API, I have built one using feathers but will switch to loopback.
