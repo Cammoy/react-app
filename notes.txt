@@ -1,3 +1,13 @@
+Removed features to add in the future.
+
+// custom auth component wrapper
+const auth = (component) => {
+  return (
+    ReqAuth( store.getState().auth.authenticated, component, AuthCompsWrapper, "/login" , UNAUTH_USER,)
+  )
+}
+
+
 // Mongo Adrress & openingTimes Fields
 addressLine1:                 {
   floor: String,
@@ -29,7 +39,7 @@ if( !this.props.auth ) {
   //app.remove('token');
   localStore.remove('token');
 
-  // If any public public page is access while logged in remove token i.e. logout
+  // If any public public page is accessed while logged in remove token i.e. logout
   if( unauth_paths.includes( cur_path ) ) {
      children = this.props.children;
   } else {
