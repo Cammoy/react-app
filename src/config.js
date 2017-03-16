@@ -2,18 +2,29 @@
 // APP CONFIGURATION FILE
 //--------------------------------------------------------------
 
-       let  SERVER              = "http://localhost:3030"
-export const MOCK_DATA          = "../mock/data.json"
-export const SERVER_LOCAL       = SERVER + "/auth/local"
-export const SERVER_REG         = SERVER + "/users"
-export const GOOGLE             = SERVER + "/auth/google"
-export const SERVER_LISTING     = SERVER + "/listings"
+       let    API             = "http://0.0.0.0:3000/api"
+export const  MOCK_DATA       = "../mock/data.json"
 
+// Users
+export const  API_USERS       = API + "/Users"
+export const  API_USER_LOGIN  = API_USERS + "/login"
+export const  API_USER_REG    = API_USERS + "/register"
+export const  API_USER_LOGOUT = API_USERS + "/logout"
+export const  API_USER_RESET  = API_USERS + "/reset"
+export const  API_USER_UPDATE = API_USERS + "/update"
+
+// Listings
+//---------------------------------------------------
+
+export const  API_LISTING     = API + "/Events"
+
+// Custom Error Codes - ( Need to organise error code by actions )
+//----------------------------------------------------------------
 
 export const ERROR_CODES = [
   {
     code: 400,
-    message: 'Please ensure your email is incorrect format'
+    message: 'Please ensure your email is in the correct format'
   },
   {
     code: 401,
@@ -89,7 +100,7 @@ export const ACCOUNT_TYPES = [
 //--------------------------------------------------------------
 export const SETTINGS = {
   APP: {
-    TITLE: 'Ruby Curated Travel'
+    TITLE: 'The Travel App'
   },
-  EXPIRE: 30
+  EXPIRE: 30 // All listing expire after x days
 }

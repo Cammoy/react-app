@@ -3,11 +3,17 @@
 
 import {
   ERROR_CODES,
-  SERVER_LOCAL,
-  SERVER_REG,
+  API_USER_LOGIN,
+  API_USER_REG,
+  API_USER_RESET,
+  API_USER_UPDATE,
+  API_USER_LOGOUT,
   MOCK_DATA,
-  SERVER_LISTING
+  API_LISTING
 } from '../../config'
+
+// UTILITIES
+//------------------------------------------------------------------------------
 
 import {
   AUTH_USER,
@@ -23,28 +29,18 @@ import {
 } from './types'
 
 
-// Feathers Setup
+// UTILITIES
 //------------------------------------------------------------------------------
 
-const url = 'http://localhost:3030'
-import io             from 'socket.io-client'
-import feathers       from 'feathers/client'
-import hooks          from 'feathers-hooks'
-import socketio       from 'feathers-socketio/client'
-import authentication from 'feathers-authentication-client'
-import localStore     from 'store'
-
-const socket = io(url);
-const app = feathers()
-  .configure(socketio(socket)) // you could use Primus or REST instead
-  .configure(hooks())
-  .configure(authentication());
-
+import localStore from 'store'
 import axios from 'axios'
-import {browserHistory} from 'react-router'
-const AUTH_TOKEN = localStore.get('token')
+import { browserHistory } from 'react-router'
 
+// Default global axios headers
+const AUTH_TOKEN = localStore.get('token')
 axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:3000';
+//axios.defaults.headers.common['Access-Control-Allow-Credentials'] = 'true';
 
 
 // LISTINGS ACTION CREATOR
@@ -54,7 +50,7 @@ export function fetchListings() {
 
   return (dispatch) => {
 
-    axios.get(SERVER_LISTING)
+    axios.get(API_LISTING)
     .then( (res) => {
 
       dispatch({
@@ -76,7 +72,7 @@ export function loginUser(user) {
 
  return (dispatch) => {
 
-   axios.post(SERVER_LOCAL, {
+   axios.post(API_USER_LOGIN, {
      email: user.email,
      password: user.password
    })
@@ -84,9 +80,9 @@ export function loginUser(user) {
 
      dispatch({type:AUTH_USER})
 
-     // Set auth in local storage
-     //-------------------------------------------------------
-     localStore.set('token', response.data.token );
+     // Set auth in local storage ( might need to change field depending on response for choosen API )
+     //----------------------------------------------------------------------------------------------
+     localStore.set('token', response.data.id );
 
      // Redirect to home
      //-------------------------------------------------------
@@ -120,7 +116,7 @@ export function registerUser(user) {
 
  return (dispatch) => {
 
-   axios.post(SERVER_REG, {
+   axios.post(API_USER_REG, {
      email: user.email,
      password: user.password
    })
@@ -159,7 +155,7 @@ export function addListing(listing) {
   console.log('Listing', listing);
 
  return (dispatch) => {
-   axios.post(SERVER_LISTING, listing )
+   axios.post(API_LISTING, listing )
    .then( (response) => {
 
      dispatch({type:ADD_LISTING, payload:true})
@@ -185,37 +181,6 @@ export function addListing(listing) {
    });
  }
 }
-
-
-// INSERT LISTING ACTION CREATOR - NOT USED ATM
-//-------------------------------------------------------
-
-export function insertListing(listing) {
-
-    return (dispatch) => {
-
-      // Get the listing service
-      const listingsService = app.service('listings');
-
-    // Create a new listing from submitted form input
-    listingsService.create(listing, {token: AUTH_TOKEN} ).then(() => {
-
-      dispatch({type:ADD_LISTING, payload:true})
-
-      // Redirect to home
-      browserHistory.replace('/home');
-
-    }).catch( (error) => {
-
-      dispatch({
-        type:LISTING_ERROR,
-        payload: error
-      })
-
-    })
-  }
-}
-
 
 // Favouties Toggle
 //--------------------------------------
