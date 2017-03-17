@@ -8,12 +8,6 @@
   "dependencies": {
     "axios": "^0.15.3",
     "breakpoint-sass": "^2.7.1",
-    "feathers": "^2.0.3",
-    "feathers-authentication-client": "^0.1.8",
-    "feathers-hooks": "^1.7.1",
-    "feathers-rest": "^1.6.0",
-    "feathers-socketio": "^1.4.2",
-    "google-maps": "^3.2.1",
     "intl-locales-supported": "^1.0.0",
     "localstorage-memory": "^1.0.2",
     "material-ui": "^0.17.0",

@@ -16,6 +16,12 @@
   transform: translateY(-50%);
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
 .center_xy {
   @include centerer_xy;
 }

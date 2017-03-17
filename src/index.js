@@ -23,8 +23,6 @@ import ListingUpdate    from './views/listingUpdate'
 // Router authentication higher order component
 //------------------------------------------------------------------------------
 import reqAuth      from './components/auth/'
-import './index.css'
-
 
 // Check if the user signed in
 //------------------------------------------------------------------------------
