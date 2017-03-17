@@ -8,7 +8,7 @@ import Slider from '../components/slides/'
  class Home extends Component {
 
    componentWillMount() {
-     this.props.fetchListings()
+     this.props.fetchListings();
    }
 
    _createGroupedArray = (arr, chunkSize) => {

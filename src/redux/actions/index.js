@@ -52,10 +52,9 @@ export function fetchListings() {
 
     axios.get(API_LISTING)
     .then( (res) => {
-
       dispatch({
           type:FETCH_DATA,
-          payload: res.data.data
+          payload: res.data
       })
 
     }).catch( (err) => {

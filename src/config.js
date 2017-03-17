@@ -102,5 +102,6 @@ export const SETTINGS = {
   APP: {
     TITLE: 'The Travel App'
   },
-  EXPIRE: 30 // All listing expire after x days
+  EXPIRE: 30, // All listing expire after x days
+  SETUP_LINKS: ['initial', 'register','login']
 }

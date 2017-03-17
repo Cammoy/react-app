@@ -14,7 +14,7 @@ import SearchIcon   from 'material-ui/svg-icons/action/search';
 import IconAdd      from 'material-ui/svg-icons/content/add';
 import IconProfile  from 'material-ui/svg-icons/action/account-circle';
 
-import Footer from '../footer/'
+import Footer from '../footer/index'
 import Styles from './style.scss';
 
 
@@ -48,9 +48,15 @@ export default class Root extends Component {
 
         <Drawer className=""
           open={this.state.open}>
-            <Link to="/"><MenuItem onTouchTap={this.handleToggle} leftIcon={<IconAdd />}>Home</MenuItem></Link>
-            <Link to="/listing/add"><MenuItem onTouchTap={this.handleToggle} leftIcon={<IconAdd />}>Add New</MenuItem></Link>
-            <Link to="/profile"><MenuItem onTouchTap={this.handleToggle} leftIcon={<IconProfile />}>Profile</MenuItem></Link>
+            <Link to="/">
+              <MenuItem onTouchTap={this.handleToggle} leftIcon={<IconAdd />}>Home</MenuItem>
+            </Link>
+            <Link to="/listing/add">
+              <MenuItem onTouchTap={this.handleToggle} leftIcon={<IconAdd />}>Add New</MenuItem>
+            </Link>
+            <Link to="/profile">
+              <MenuItem onTouchTap={this.handleToggle} leftIcon={<IconProfile />}>Profile</MenuItem>
+            </Link>
         </Drawer>
 
         <AppBar

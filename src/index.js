@@ -49,7 +49,9 @@ if(localStore.get('token')) {
           <Route path="/listings" component={reqAuth(Listings)}/>
           <Route path="/listing/add" component={reqAuth(ListingAdd)}/>
           <Route path="/listing/update" component={reqAuth(ListingUpdate)}/>
-          <Route path="*" code={500} message="Page Not Found!" component={Error}/>
+
+          {/** Custom Error Page  -- Needs to handle common status code and add styling etc **/}
+          <Route path="*" code={404} message="Page Not Found!" component={Error}/>
         </Route>
       </Router>
     </Provider>,

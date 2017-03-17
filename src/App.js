@@ -1,5 +1,3 @@
-// React Setup
-//------------------------------------------------------------------------------
 import { SETTINGS } from './config'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin();
@@ -12,8 +10,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import './App.scss'
 
 
-
-
 class App extends Component {
 
   componentWillMount() {
@@ -24,12 +20,11 @@ class App extends Component {
   }
 
   _checkNav = () => {
-    // authenticated use should be able to visit these links
 
     const { pathname } = this.props.children.props.location;
-    let SetupLinks = ['initial', 'register','login'].includes(pathname.substr(1));
 
-    if( this.props.auth && SetupLinks ) {
+    // authenticated users should NOT be able to visit these links
+    if( this.props.auth && SETTINGS.SETUP_LINKS.includes(pathname.substr(1)) ) {
       browserHistory.push('/home');
     }
   }
