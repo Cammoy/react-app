@@ -7,16 +7,16 @@ import { connect } from 'react-redux';
 import {browserHistory} from 'react-router'
 //import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import './App.scss'
+//import './App.scss'
 
 
 class App extends Component {
 
   componentWillMount() {
-    this._checkNav();
+    //this._checkNav();
   }
   componentDidUpdate() {
-    this._checkNav();
+    //this._checkNav();
   }
 
   _checkNav = () => {
