@@ -10,7 +10,7 @@ const Error = (props) => {
 
   return (
     <div className="error">
-      <h1>{props.code || props.route.code} - {props.message || props.route.message}</h1>
+      {props.code} - {props.message}
     </div>
   )
 }
