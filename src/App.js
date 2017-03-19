@@ -10,28 +10,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 //import './App.scss'
 
 
-class App extends Component {
+const App = (props) => {
 
-  componentWillMount() {
-    //this._checkNav();
-  }
-  componentDidUpdate() {
-    //this._checkNav();
-  }
-
-  _checkNav = () => {
-
-    const { pathname } = this.props.children.props.location;
-
+  const _checkNav = () => {
     // authenticated users should NOT be able to visit these links
-    if( this.props.auth && SETTINGS.SETUP_LINKS.includes(pathname.substr(1)) ) {
+    if( props.auth && SETTINGS.SETUP_LINKS.includes(location.pathname.substr(1)) ) {
       browserHistory.push('/home');
     }
   }
 
-  _header = () => {
+  _checkNav();
 
-    if( !this.props.auth ) {
+  const _header = () => {
+
+    if( !props.auth ) {
       return (
         <div className="app-header-container">
           <header className="app-header">
@@ -43,18 +35,17 @@ class App extends Component {
     }
   }
 
-  render() {
-    return (
-      <MuiThemeProvider>
-        <div className="app">
-          {this._header()}
-          <div className="app__content-wrap">
-            {this.props.children}
-          </div>
+  return (
+    <MuiThemeProvider>
+      <div className="app">
+        {_header}
+        <div className="app__content-wrap">
+          {props.children}
         </div>
-      </MuiThemeProvider>
-    );
-  }
+      </div>
+    </MuiThemeProvider>
+  );
+
 }
 
 function mapStateToProps (state) {

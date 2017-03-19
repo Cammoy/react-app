@@ -1,14 +1,20 @@
-// Did app render0
+// Did app render
 //---------------------------------------------------------------------
 
-import { renderComponent , expect } from '../../__test-utils__/helper'
-import App from '../../App';
+import React from 'react'
+import { renderComponent, expect } from '../../__test-utils__/helper'
+import Comp from './'
 
-describe('App' , () => {
+const stub = {
+  code: 500,
+  message: "Something went wrong"
+}
+
+describe('Error Component' , () => {
   let component;
 
   beforeEach(() => {
-    component = renderComponent(App);
+    component = renderComponent(<Comp code={stub.code} message={stub.message} />);
   });
 
   it('renders something', () => {
