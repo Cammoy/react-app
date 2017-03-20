@@ -15,11 +15,14 @@ const List = ({items}) => {
     })
   }
 
-  return (
-    <ul className="list">
-      {items? items : ''}
-    </ul>
-  )
+  if( items ) {
+    return (
+      <ul className="list">
+        {items}
+      </ul>
+    )
+  } else return null;
+
 }
 
 List.propTypes = {

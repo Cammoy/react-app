@@ -8,16 +8,28 @@ import React from 'react'
 **/
 
 const Item = ({item}) => {
-  return (
-    <li className="product">
-        <span className="product__image">
-          <img src={item.image.thumb} alt={item.name} />
+
+  // Check if its a string
+  if (typeof item === 'object') {
+
+    let image;
+    { item.image? image = item.image : image = "assets/img/default.png" }
+
+    item =
+      <li className="item">
+        <span className="item__image">
+          <img src={image} alt={item.name} />
         </span>
-        <span className="product__name">
+        <span className="item__name">
           {item.name}
         </span>
-    </li>
-  )
+      </li>
+  }
+  if ( typeof item === 'string' || item instanceof String ) {
+    item = <li className="item">{item}</li>
+  }
+
+  return item
 }
 
 Item.propTypes = {
