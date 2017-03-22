@@ -71,6 +71,18 @@ const InputField = styled(Field)`
 `;
 
 
+// Input fields - Hoisted to prevent re-render and loosing focus
+//---------------------------------------------------------------------------
+
+const renderField = ({ className, input, label, type, meta: { touched, error, warning } }) => (
+ <div className={className}>
+   <label>{label}</label>
+     <input {...input} placeholder="" type={type}/>
+     {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+ </div>
+)
+
+
 const Register= (props) => {
 
   const { handleSubmit, pristine, submitting, reset } = props
@@ -98,17 +110,6 @@ const Register= (props) => {
         )
      })
    }
-
-   // Input fields
-   //---------------------------------------------------------------------------
-
-   const renderField = ({ className, input, label, type, meta: { touched, error, warning } }) => (
-    <div className={className}>
-      <label>{label}</label>
-        <input {...input} placeholder="" type={type}/>
-        {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-    </div>
-   )
 
   return(
     <form onSubmit={handleSubmit(_registerUser)}>
