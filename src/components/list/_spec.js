@@ -1,4 +1,3 @@
-import React from 'react'
 import { renderComponent, expect } from '../../__test-utils__/helper'
 import List from './'
 import Item from './item'
@@ -21,7 +20,7 @@ const stub_list = {
 }
 
 
-describe('List', () => {
+describe('List:', () => {
 
   let component;
 
@@ -41,7 +40,7 @@ describe('List', () => {
 // Item - Given Object
 //------------------------------------------------------------------------------
 
-describe('Item - Given Object', () => {
+describe('Item - Given Object:', () => {
 
   const stub_item = {
     item: {

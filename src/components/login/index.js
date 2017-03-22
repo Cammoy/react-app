@@ -29,11 +29,11 @@ const Login = (props) => {
   }
 
   return(
-    <div className="reg">
+    <div className="login">
       <form onSubmit={handleSubmit( props.onLoginClick) }>
 
          <Field
-          className="reg__field"
+           className="email"
          style={filedStyle}
          name="email"
          type="email"
@@ -42,7 +42,7 @@ const Login = (props) => {
          validate={[ required, email ]}/>
 
          <Field
-          className="reg__field"
+           className="password"
          style={filedStyle}
          name="password"
          type="password"
@@ -70,8 +70,4 @@ function mapStateToProps(state) {
   }
 }
 const form = reduxForm({form: 'loginForm'})(Login);
-export default connect(mapStateToProps,
-
-  // MapDispatchToProps
-  { onLoginClick:loginUser }
-)(form)
+export default connect(mapStateToProps, { onLoginClick:loginUser })(form)

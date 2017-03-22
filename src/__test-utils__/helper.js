@@ -10,6 +10,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from '../redux/reducers/'
 
+// add support for material-ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin();
+
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
 global.window = global.document.defaultView;
 global.navigator = global.window.navigator;
@@ -23,7 +28,9 @@ chaiJquery(chai, chai.util, $);
 function renderComponent(ComponentClass, props = {}, state = {}) {
   const componentInstance =  TestUtils.renderIntoDocument(
     <Provider store={createStore(reducers, state)}>
-      <ComponentClass {...props} />
+      <MuiThemeProvider>
+        <ComponentClass {...props} />
+      </MuiThemeProvider>
     </Provider>
   );
 

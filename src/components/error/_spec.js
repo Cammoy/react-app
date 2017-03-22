@@ -2,7 +2,6 @@
 // Test Error component
 //---------------------------------------------------------------------
 
-import React from 'react'
 import { renderComponent, expect } from '../../__test-utils__/helper'
 import Comp from './'
 
@@ -12,7 +11,7 @@ const stub = {
   message: "Something went wrong"
 }
 
-describe('Error Component' , () => {
+describe('Error Component:' , () => {
   let component;
 
   beforeEach(() => {
@@ -23,14 +22,14 @@ describe('Error Component' , () => {
     expect(component).to.exist;
   });
 
-  it('Has error class', () => {
+  it('shoud have error class', () => {
     expect(component).has.class('error')
   });
 
-  it('shows error code', () => {
+  it('should have error code', () => {
     expect(component).to.contain(stub.code)
   });
-  it('shows error message', () => {
+  it('should have error message', () => {
     expect(component).to.contain(stub.message)
   });
 
